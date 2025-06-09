@@ -77,54 +77,44 @@
     <footer class="bg-gray-800 text-white mt-12">
         <div class="container mx-auto py-4 px-5 flex justify-between items-center">
             <p class="text-sm">&copy; <span id="currentYear"></span> Promo Shoppe. Todos os direitos reservados.</p>
-            <button id="open-admin-modal-btn" title="Gerenciar Produtos" class="text-gray-400 hover:text-white transition-all">
+            <button id="open-admin-btn" title="Gerenciar Produtos" class="text-gray-400 hover:text-white transition-all">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
             </button>
         </div>
     </footer>
 
+    <!-- Modal de Senha -->
+    <div id="password-modal" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 hidden">
+        <div class="bg-white p-8 rounded-xl shadow-2xl w-full max-w-sm m-4">
+            <h2 class="text-2xl font-bold text-gray-800 mb-2">Acesso Restrito</h2>
+            <p class="text-gray-600 mb-6">Insira a senha para gerenciar os produtos.</p>
+            <form id="password-form">
+                <input type="password" id="password-input" class="w-full px-4 py-2 border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4" placeholder="Senha">
+                <button type="submit" class="w-full bg-blue-600 text-white font-semibold py-2 px-6 rounded-lg shadow-md hover:bg-blue-700">Entrar</button>
+            </form>
+            <p id="password-error" class="text-red-500 text-sm mt-2 hidden">Senha incorreta. Tente novamente.</p>
+        </div>
+    </div>
+
+
     <!-- Modal de Gerenciamento de Produtos -->
     <div id="admin-modal" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 hidden">
         <div class="bg-white rounded-xl shadow-2xl w-full max-w-7xl m-4 max-h-[90vh] flex flex-col">
-            <div class="p-6 border-b flex justify-between items-center">
-                <h2 class="text-2xl font-bold text-gray-800">Gerenciar Produtos</h2>
-                <button id="close-admin-modal-btn" class="text-gray-500 hover:text-gray-800">&times;</button>
-            </div>
-            <div class="p-6 overflow-x-auto">
-                <button id="add-row-btn" class="mb-4 bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-blue-700">Adicionar Nova Linha</button>
-                <div class="overflow-auto">
-                    <table class="w-full min-w-[1200px] text-sm text-left">
-                        <thead class="bg-gray-100">
-                            <tr>
-                                <th class="p-2">Nome</th>
-                                <th class="p-2">Preço</th>
-                                <th class="p-2">Preço Antigo</th>
-                                <th class="p-2">Link Afiliado</th>
-                                <th class="p-2">URL Imagem</th>
-                                <th class="p-2">Tag</th>
-                                <th class="p-2">Avaliação</th>
-                                <th class="p-2">Nº Avaliações</th>
-                                <th class="p-2">Ação</th>
-                            </tr>
-                        </thead>
-                        <tbody id="product-table-body">
-                            <!-- Linhas da tabela serão inseridas aqui -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="p-6 border-t mt-auto flex justify-end gap-4">
-                <button id="cancel-bulk-add-btn" class="bg-gray-300 text-gray-800 font-semibold py-2 px-6 rounded-lg hover:bg-gray-400">Cancelar</button>
-                <button id="save-bulk-add-btn" class="bg-green-500 text-white font-semibold py-2 px-6 rounded-lg shadow-md hover:bg-green-600">Salvar Produtos</button>
-            </div>
+            <div class="p-6 border-b flex justify-between items-center"><h2 class="text-2xl font-bold text-gray-800">Gerenciar Produtos</h2><button id="close-admin-modal-btn" class="text-gray-500 hover:text-gray-800 text-3xl">&times;</button></div>
+            <div class="p-6 overflow-x-auto"><button id="add-row-btn" class="mb-4 bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-blue-700">Adicionar Nova Linha</button><div class="overflow-auto"><table class="w-full min-w-[1200px] text-sm text-left"><thead class="bg-gray-100"><tr><th class="p-2">Nome</th><th class="p-2">Preço</th><th class="p-2">Preço Antigo</th><th class="p-2">Link Afiliado</th><th class="p-2">URL Imagem</th><th class="p-2">Tag</th><th class="p-2">Avaliação</th><th class="p-2">Nº Avaliações</th><th class="p-2">Ação</th></tr></thead><tbody id="product-table-body"></tbody></table></div></div>
+            <div class="p-6 border-t mt-auto flex justify-end gap-4"><button id="cancel-bulk-add-btn" class="bg-gray-300 text-gray-800 font-semibold py-2 px-6 rounded-lg hover:bg-gray-400">Cancelar</button><button id="save-bulk-add-btn" class="bg-green-500 text-white font-semibold py-2 px-6 rounded-lg shadow-md hover:bg-green-600">Salvar Produtos</button></div>
         </div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // --- CONFIGURAÇÃO DE SEGURANÇA ---
+            // Altere a senha aqui conforme desejado
+            const SENHA_CORRETA = 'promo';
+
             let products = [
-                { id: Date.now() + 1, name: 'Smartphone Moderno X', price: 2799.90, oldPrice: 3499.90, description: 'Um smartphone de última geração com câmera de 108MP e tela AMOLED...', image: 'https://placehold.co/600x400/3498db/ffffff?text=Smartphone', affiliateLink: 'https://seulink.com/p1', tag: 'Oferta Especial', rating: 5, reviews: 188 },
-                { id: Date.now() + 2, name: 'Notebook UltraPro 2', price: 7499.00, oldPrice: 0, description: 'Potência e design para profissionais criativos...', image: 'https://placehold.co/600x400/2ecc71/ffffff?text=Notebook', affiliateLink: 'https://seulink.com/p2', tag: 'Mais Vendido', rating: 5, reviews: 215 },
+                { id: Date.now() + 1, name: 'Smartphone Moderno X', price: 2799.90, oldPrice: 3499.90, description: 'Um smartphone de última geração...', image: 'https://placehold.co/600x400/3498db/ffffff?text=Smartphone', affiliateLink: 'https://seulink.com/p1', tag: 'Oferta Especial', rating: 5, reviews: 188 },
+                { id: Date.now() + 2, name: 'Notebook UltraPro 2', price: 7499.00, oldPrice: 0, description: 'Potência e design para profissionais...', image: 'https://placehold.co/600x400/2ecc71/ffffff?text=Notebook', affiliateLink: 'https://seulink.com/p2', tag: 'Mais Vendido', rating: 5, reviews: 215 },
             ];
             
             const productContainer = document.getElementById('product-container');
@@ -132,9 +122,13 @@
             const noResultsDiv = document.getElementById('no-results');
             document.getElementById('currentYear').textContent = new Date().getFullYear();
 
-            // Admin Modal Elements
+            // Admin & Password Modal Elements
+            const passwordModal = document.getElementById('password-modal');
+            const passwordForm = document.getElementById('password-form');
+            const passwordInput = document.getElementById('password-input');
+            const passwordError = document.getElementById('password-error');
             const adminModal = document.getElementById('admin-modal');
-            const openAdminModalBtn = document.getElementById('open-admin-modal-btn');
+            const openAdminBtn = document.getElementById('open-admin-btn');
             const closeAdminModalBtn = document.getElementById('close-admin-modal-btn');
             const cancelBulkAddBtn = document.getElementById('cancel-bulk-add-btn');
             const addRowBtn = document.getElementById('add-row-btn');
@@ -183,17 +177,7 @@
             const createTableRow = () => {
                 const tr = document.createElement('tr');
                 tr.className = 'border-b';
-                tr.innerHTML = `
-                    <td class="p-2"><input type="text" class="w-full p-1 border rounded" data-field="name"></td>
-                    <td class="p-2"><input type="number" step="0.01" class="w-full p-1 border rounded" data-field="price"></td>
-                    <td class="p-2"><input type="number" step="0.01" class="w-full p-1 border rounded" data-field="oldPrice"></td>
-                    <td class="p-2"><input type="url" class="w-full p-1 border rounded" data-field="affiliateLink"></td>
-                    <td class="p-2"><input type="url" class="w-full p-1 border rounded" data-field="image"></td>
-                    <td class="p-2"><input type="text" class="w-full p-1 border rounded" data-field="tag"></td>
-                    <td class="p-2"><input type="number" step="1" max="5" min="0" class="w-full p-1 border rounded" data-field="rating"></td>
-                    <td class="p-2"><input type="number" step="1" min="0" class="w-full p-1 border rounded" data-field="reviews"></td>
-                    <td class="p-2"><button class="remove-row-btn text-red-500 hover:text-red-700 font-bold">Remover</button></td>
-                `;
+                tr.innerHTML = `<td class="p-2"><input type="text" class="w-full p-1 border rounded" data-field="name"></td><td class="p-2"><input type="number" step="0.01" class="w-full p-1 border rounded" data-field="price"></td><td class="p-2"><input type="number" step="0.01" class="w-full p-1 border rounded" data-field="oldPrice"></td><td class="p-2"><input type="url" class="w-full p-1 border rounded" data-field="affiliateLink"></td><td class="p-2"><input type="url" class="w-full p-1 border rounded" data-field="image"></td><td class="p-2"><input type="text" class="w-full p-1 border rounded" data-field="tag"></td><td class="p-2"><input type="number" step="1" max="5" min="0" class="w-full p-1 border rounded" data-field="rating"></td><td class="p-2"><input type="number" step="1" min="0" class="w-full p-1 border rounded" data-field="reviews"></td><td class="p-2"><button class="remove-row-btn text-red-500 hover:text-red-700 font-bold">Remover</button></td>`;
                 productTableBody.appendChild(tr);
                 tr.querySelector('.remove-row-btn').addEventListener('click', (e) => e.target.closest('tr').remove());
             };
@@ -203,45 +187,63 @@
                 const newProducts = [];
                 rows.forEach(row => {
                     const inputs = row.querySelectorAll('input');
-                    const newProduct = { id: Date.now() + Math.random() }; // simple unique ID
+                    const newProduct = { id: Date.now() + Math.random() };
                     let isValid = true;
                     inputs.forEach(input => {
                         const field = input.dataset.field;
                         let value = input.value;
-                        if (field === 'price' || field === 'oldPrice' || field === 'rating' || field === 'reviews') {
-                            value = parseFloat(value) || 0;
-                        }
+                        if (['price', 'oldPrice', 'rating', 'reviews'].includes(field)) value = parseFloat(value) || 0;
                         if (field === 'name' && !value) isValid = false;
                         if (field === 'price' && value <= 0) isValid = false;
                         if (field === 'affiliateLink' && !value) isValid = false;
                         newProduct[field] = value;
                     });
-                    
-                    if(isValid) {
-                        newProducts.push(newProduct);
-                    }
+                    if(isValid) newProducts.push(newProduct);
                 });
-
                 if (newProducts.length > 0) {
                     products = [...newProducts, ...products];
                     renderProducts(products);
                 }
-                productTableBody.innerHTML = '';
-                adminModal.classList.add('hidden');
+                closeAdminModal();
             };
 
-            const closeModal = () => {
+            const closeAdminModal = () => {
                 adminModal.classList.add('hidden');
-                productTableBody.innerHTML = ''; // Clear table on close
+                productTableBody.innerHTML = '';
             };
             
-            // Event Listeners
+            // --- Event Listeners ---
             searchInput.addEventListener('input', handleSearch);
-            openAdminModalBtn.addEventListener('click', () => adminModal.classList.remove('hidden'));
-            closeAdminModalBtn.addEventListener('click', closeModal);
-            cancelBulkAddBtn.addEventListener('click', closeModal);
+            openAdminBtn.addEventListener('click', () => {
+                passwordModal.classList.remove('hidden');
+                passwordInput.focus();
+            });
+            
+            passwordForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                if (passwordInput.value === SENHA_CORRETA) {
+                    passwordModal.classList.add('hidden');
+                    adminModal.classList.remove('hidden');
+                    passwordInput.value = '';
+                    passwordError.classList.add('hidden');
+                } else {
+                    passwordError.classList.remove('hidden');
+                    passwordInput.value = '';
+                }
+            });
+
+            closeAdminModalBtn.addEventListener('click', closeAdminModal);
+            cancelBulkAddBtn.addEventListener('click', closeAdminModal);
             addRowBtn.addEventListener('click', createTableRow);
             saveBulkAddBtn.addEventListener('click', saveBulkProducts);
+
+            // Close modals with Escape key
+            window.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    closeAdminModal();
+                    passwordModal.classList.add('hidden');
+                }
+            });
 
             // Initial Render
             renderProducts(products);
