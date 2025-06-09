@@ -7,13 +7,13 @@
     <title>Promo Shoppe | As Melhores Ofertas e Recomendações</title>
     <meta name="description" content="Encontre as melhores promoções e ofertas na Promo Shoppe. Selecionamos produtos incríveis com os melhores preços e avaliações para você.">
     <meta name="keywords" content="promo shoppe, ofertas, promoções, afiliados, produtos baratos, recomendações">
-    <link rel="canonical" href="https://sua-url-oficial.com">
+    <link rel="canonical" href="https://promoshopee.site">
 
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%233B82F6'/%3E%3Cstop offset='100%25' stop-color='%239333EA'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ctext y='50' x='50' font-size='90' fill='url(%23g)' text-anchor='middle' dominant-baseline='central'%3E%E2%9C%A8%3C/text%3E%3C/svg%3E">
     <meta property="og:title" content="Promo Shoppe | As Melhores Ofertas e Recomendações">
     <meta property="og:description" content="Encontre as melhores promoções e ofertas na Promo Shoppe.">
     <meta property="og:image" content="https://placehold.co/1200x630/5b21b6/ffffff?text=Promo+Shoppe">
-    <meta property="og:url" content="https://sua-url-oficial.com">
+    <meta property="og:url" content="https://promoshopee.site">
     <meta property="og:type" content="website">
 
     <script src="https://cdn.tailwindcss.com"></script>
@@ -36,7 +36,7 @@
       "@context": "https://schema.org",
       "@type": "WebSite",
       "name": "Promo Shoppe",
-      "url": "https://sua-url-oficial.com",
+      "url": "https://promoshopee.site",
       "description": "Encontre as melhores promoções e ofertas na Promo Shoppe."
     }
     </script>
@@ -102,7 +102,7 @@
         <div class="bg-white rounded-xl shadow-2xl w-full max-w-7xl m-4 max-h-[90vh] flex flex-col">
             <div class="p-6 border-b flex justify-between items-center"><h2 class="text-2xl font-bold text-gray-800">Gerenciar Produtos</h2><div><button id="logout-btn" class="text-sm text-red-500 mr-4">Sair</button><button id="close-admin-modal-btn" class="text-gray-500 hover:text-gray-800 text-3xl">&times;</button></div></div>
             <div class="p-4 border-b"><button id="tab-manage-btn" class="admin-tab px-4 py-2 font-semibold border-b-2">Gerenciar Produtos</button><button id="tab-bulk-add-btn" class="admin-tab px-4 py-2 font-semibold border-b-2 border-transparent text-gray-500">Adicionar em Lote</button></div>
-            <div id="bulk-add-content" class="p-6 overflow-y-auto hidden"><button id="add-row-btn" class="mb-4 bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg">Adicionar Linha</button><div class="overflow-x-auto"><table class="w-full min-w-[1200px] text-sm"><thead class="bg-gray-100"><tr><th class="p-2">Nome</th><th class="p-2">Link Afiliado</th><th class="p-2">URL Imagem</th><th class="p-2">Tag</th><th class="p-2">Avaliação</th><th class="p-2">Nº Avaliações</th><th class="p-2">Ação</th></tr></thead><tbody id="product-table-body"></tbody></table></div><div class="pt-6 border-t mt-4 flex justify-end gap-4"><button id="cancel-bulk-add-btn" class="bg-gray-300 text-gray-800 font-semibold py-2 px-6 rounded-lg">Cancelar</button><button id="save-bulk-add-btn" class="bg-green-500 text-white font-semibold py-2 px-6 rounded-lg">Salvar Produtos</button></div></div>
+            <div id="bulk-add-content" class="p-6 overflow-y-auto hidden"><button id="add-row-btn" class="mb-4 bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg">Adicionar Linha</button><div class="overflow-x-auto"><table class="w-full min-w-[1200px] text-sm"><thead class="bg-gray-100"><tr><th class="p-2">Nome</th><th class="p-2">Descrição</th><th class="p-2">Link Afiliado</th><th class="p-2">URL Imagem</th><th class="p-2">Tag</th><th class="p-2">Avaliação</th><th class="p-2">Nº Avaliações</th><th class="p-2">Ação</th></tr></thead><tbody id="product-table-body"></tbody></table></div><div class="pt-6 border-t mt-4 flex justify-end gap-4"><button id="cancel-bulk-add-btn" class="bg-gray-300 text-gray-800 font-semibold py-2 px-6 rounded-lg">Cancelar</button><button id="save-bulk-add-btn" class="bg-green-500 text-white font-semibold py-2 px-6 rounded-lg">Salvar Produtos</button></div></div>
             <div id="manage-content" class="p-6 overflow-y-auto"><div class="overflow-x-auto"><table class="w-full min-w-[1200px] text-sm"><thead class="bg-gray-100"><tr><th class="p-2">Nome</th><th class="p-2">Link Afiliado</th><th class="p-2">Ações</th></tr></thead><tbody id="manage-table-body"></tbody></table></div></div>
         </div>
     </div>
@@ -267,30 +267,64 @@
             const target = e.target;
             const tr = target.closest('tr');
             if (!tr) return;
-            const productId = tr.dataset.productId;
+
+            // Limpa qualquer outra linha de edição aberta
+            const existingEditRows = manageTableBody.querySelectorAll('.edit-form-row');
+            existingEditRows.forEach(row => {
+                row.previousElementSibling.style.display = '';
+                row.remove();
+            });
+
             if (target.classList.contains('delete-btn')) {
+                 const productId = tr.dataset.productId;
                 if (confirm(`Tem certeza que deseja excluir o produto?`)) {
                     await deleteDoc(doc(db, "products", productId));
                 }
             }
             if (target.classList.contains('edit-btn')) {
+                const productId = tr.dataset.productId;
                 const product = products.find(p => p.id === productId);
-                tr.innerHTML = `<td class="p-2"><input type="text" value="${product.name}" class="w-full p-1 border rounded" data-field="name"></td><td class="p-2"><input type="url" value="${product.affiliateLink}" class="w-full p-1 border rounded" data-field="affiliateLink"></td><td class="p-2 flex gap-2"><button class="save-edit-btn text-green-500 font-semibold">Salvar</button><button class="cancel-edit-btn text-gray-500 font-semibold">Cancelar</button></td>`;
+                const editRow = document.createElement('tr');
+                editRow.className = 'edit-form-row';
+                
+                tr.style.display = 'none';
+                
+                editRow.innerHTML = `
+                    <td colspan="3" class="p-4 bg-gray-50">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div><label class="block text-sm font-medium text-gray-700">Nome</label><input type="text" data-field="name" value="${product.name}" class="mt-1 block w-full p-2 border rounded-md"></div>
+                            <div><label class="block text-sm font-medium text-gray-700">Link Afiliado</label><input type="url" data-field="affiliateLink" value="${product.affiliateLink}" class="mt-1 block w-full p-2 border rounded-md"></div>
+                            <div class="md:col-span-2"><label class="block text-sm font-medium text-gray-700">Descrição</label><textarea data-field="description" rows="3" class="mt-1 block w-full p-2 border rounded-md">${product.description || ''}</textarea></div>
+                        </div>
+                        <div class="flex gap-2 mt-4">
+                            <button class="save-edit-btn text-white bg-green-500 hover:bg-green-600 px-4 py-2 rounded-md font-semibold" data-product-id="${productId}">Salvar</button>
+                            <button class="cancel-edit-btn text-gray-700 bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded-md font-semibold">Cancelar</button>
+                        </div>
+                    </td>
+                `;
+                tr.after(editRow);
             }
-            if (target.classList.contains('cancel-edit-btn')) { populateManageTable(); }
+            if (target.classList.contains('cancel-edit-btn')) {
+                const editRow = target.closest('.edit-form-row');
+                editRow.previousElementSibling.style.display = '';
+                editRow.remove();
+            }
             if (target.classList.contains('save-edit-btn')) {
+                const productId = target.dataset.productId;
+                const editRow = target.closest('.edit-form-row');
                 const updatedProduct = {};
-                tr.querySelectorAll('input').forEach(input => {
+                editRow.querySelectorAll('input, textarea').forEach(input => {
                     updatedProduct[input.dataset.field] = input.value;
                 });
                 await setDoc(doc(db, "products", productId), updatedProduct, { merge: true });
+                // A tabela será atualizada pelo onSnapshot
             }
         });
 
         const createBulkAddRow = () => {
             const tr = document.createElement('tr');
             tr.className = 'border-b';
-            tr.innerHTML = `<td class="p-2"><input type="text" class="w-full p-1 border" data-field="name"></td><td class="p-2"><input type="url" class="w-full p-1 border" data-field="affiliateLink"></td><td class="p-2"><input type="url" class="w-full p-1 border" data-field="image"></td><td class="p-2"><input type="text" class="w-full p-1 border" data-field="tag"></td><td class="p-2"><input type="number" class="w-full p-1 border" data-field="rating"></td><td class="p-2"><input type="number" class="w-full p-1 border" data-field="reviews"></td><td class="p-2"><button class="remove-row-btn text-red-500 font-bold">Remover</button></td>`;
+            tr.innerHTML = `<td class="p-2"><input type="text" class="w-full p-1 border" data-field="name"></td><td class="p-2"><textarea class="w-full p-1 border" data-field="description" rows="1"></textarea></td><td class="p-2"><input type="url" class="w-full p-1 border" data-field="affiliateLink"></td><td class="p-2"><input type="url" class="w-full p-1 border" data-field="image"></td><td class="p-2"><input type="text" class="w-full p-1 border" data-field="tag"></td><td class="p-2"><input type="number" class="w-full p-1 border" data-field="rating"></td><td class="p-2"><input type="number" class="w-full p-1 border" data-field="reviews"></td><td class="p-2"><button class="remove-row-btn text-red-500 font-bold">Remover</button></td>`;
             productTableBody.appendChild(tr);
             tr.querySelector('.remove-row-btn').addEventListener('click', (e) => e.target.closest('tr').remove());
         };
@@ -301,7 +335,7 @@
             productTableBody.querySelectorAll('tr').forEach(row => {
                 const newProduct = {};
                 let isValid = true;
-                row.querySelectorAll('input').forEach(input => {
+                row.querySelectorAll('input, textarea').forEach(input => {
                     const field = input.dataset.field; let value = input.value;
                     if (['rating', 'reviews'].includes(field)) value = parseFloat(value) || 0;
                     if ((field === 'name' || field === 'affiliateLink') && !value) isValid = false;
@@ -328,7 +362,7 @@
 
         const closeAdminModal = () => {
             adminModal.classList.add('hidden');
-            productTableBody.innerHTML = ''; // Limpa a tabela ao fechar
+            productTableBody.innerHTML = '';
         };
         
         tabManageBtn.addEventListener('click', () => switchTab('manage'));
@@ -336,7 +370,6 @@
         closeAdminModalBtn.addEventListener('click', closeAdminModal);
         cancelBulkAddBtn.addEventListener('click', closeAdminModal);
         
-        // Fechar modais
         window.addEventListener('keydown', (e) => { if (e.key === 'Escape') { adminModal.classList.add('hidden'); authModal.classList.add('hidden'); } });
     </script>
 </body>
