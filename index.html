@@ -61,10 +61,14 @@
 
     <!-- Conteúdo Principal -->
     <main class="container mx-auto p-4 md:p-8 flex-grow">
+        <!-- Aviso para busca -->
+        <div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 rounded-lg mb-8" role="alert">
+            <p> <center>Para encontrar o produto que deseja, digite o código na caixa de busca. <center> </p>
+        </div>
         <div id="product-container" class="flex flex-col gap-6"></div>
         <div id="no-results" class="hidden text-center py-16"><h2 class="text-2xl font-semibold text-gray-600">Nenhum produto encontrado</h2><p class="text-gray-500 mt-2">Tente buscar por outro termo.</p></div>
     </main>
-
+                
     <!-- Rodapé -->
     <footer class="bg-gray-800 text-white mt-12">
         <div class="container mx-auto py-4 px-5 flex justify-between items-center">
